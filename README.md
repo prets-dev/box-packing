@@ -2,13 +2,18 @@
 
 This is a React application that implements a packing algorithm to determine the smallest box or collection of boxes required to fit a set of products. The project demonstrates skills in React, TypeScript, and UI development, as well as the ability to solve algorithmic problems and write clean, reusable code.
 
+## Demo Live Site
+
+You can view a live demo of the application at the following link:
+[Box Packing Algorithm App Live Demo](https://box-packing.vercel.app)
+
 ## Getting Started
 
 ### How to Install and Run the Project
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/box-packing-app.git
+    git clone https://github.com/prets-dev/box-packing-app.git
     cd box-packing-app
     ```
 

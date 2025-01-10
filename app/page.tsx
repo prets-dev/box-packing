@@ -13,8 +13,6 @@ export default function Home() {
   const products = (productList as Product[]).filter((product) => selectedProducts.includes(product.name));
   const selectedBoxes = useMemo(() => calculateBoxes(products), [products]);
 
-  console.log({ selectedProducts, selectedBoxes})
-
   return (
     <Container size="xs" mt={50}>
       <ProductsMultiSelect
