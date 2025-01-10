@@ -1,18 +1,6 @@
 import { render, screen, userEvent } from '../utils/tests';
-import ProductsMultiSelect from '../components/products-multi-select';
 import { MultiSelect } from '@mantine/core';
 import products from "../data/products";
-
-function ProductsMultiSelect() {
-  const data = products.map((product) => ({ value: product.name, label: product.name }))
-  return (
-    <MultiSelect
-      name="products"
-      label="Select products"
-      data={data}
-    />
-  );
-}
 
 describe('MultiSelect Component', () => {
   it('selects multiple options', async () => {
