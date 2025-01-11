@@ -5,7 +5,7 @@ import { Product } from '@/types';
 
 const MAX_PRODUCTS = 10;
 
-const ProductsMultiSelect: React.FC<{
+const Products: React.FC<{
     values: Product['name'][];
     onChange: Dispatch<SetStateAction<Product['name'][]>>;
 }> = ({
@@ -24,7 +24,6 @@ const ProductsMultiSelect: React.FC<{
                 clearable
                 checkIconPosition="left"
                 maxValues={MAX_PRODUCTS}
-                // value={values}
                 onChange={(values) => onChange(values)}
                 searchable
             />
@@ -32,4 +31,4 @@ const ProductsMultiSelect: React.FC<{
     );
 };
 
-export default ProductsMultiSelect;
+export default Products;

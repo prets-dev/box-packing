@@ -1,14 +1,14 @@
 import { render, screen, userEvent } from '../utils/tests';
-import ProductsMultiSelect from '../components/products-multi-select';
+import Products from '../components/products';
 
-describe('ProductsMultiSelect Component', () => {
+describe('Products Component', () => {
   it('selects multiple options', async () => {
     let selectedProducts = [];
     const setSelectedProducts = jest.fn((newValue) => {
       selectedProducts = newValue;
     });
     render(
-      <ProductsMultiSelect
+      <Products
         values={selectedProducts}
         onChange={setSelectedProducts}
       />

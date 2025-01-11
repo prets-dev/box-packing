@@ -1,24 +1,24 @@
 'use client'
 
-import ProductsMultiSelect from "@/components/products-multi-select";
+import Products from "@/components/products";
 import { Product } from "@/types";
 import { Container } from "@mantine/core";
 import { useState } from "react";
 import productList from "@/data/products.json";
-import SelectedBoxes from "@/components/selected-boxes";
-import calculateBoxes from "@/utils/calculate-boxes";
+import Boxes from "@/components/boxes";
+import allocateBoxes from "@/utils/allocate-boxes";
 
 export default function Home() {
-  const [selectedProducts, setSelectedProducts] = useState<Product['name'][]>([]);
-  const products = (productList as Product[]).filter((product) => selectedProducts.includes(product.name));
+  const [products, setProducts] = useState<Product['name'][]>([]);
+  const parsedProducts = (productList as Product[]).filter((product) => products.includes(product.name));
 
   return (
     <Container size="xs" mt={50}>
-      <ProductsMultiSelect
-        values={selectedProducts}
-        onChange={setSelectedProducts}
+      <Products
+        values={products}
+        onChange={setProducts}
       />
-      <SelectedBoxes boxes={calculateBoxes(products)} />
+      <Boxes values={allocateBoxes(parsedProducts)} />
     </Container>
   );
 }

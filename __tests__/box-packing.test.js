@@ -1,45 +1,47 @@
-import calculateBoxes from "../utils/calculate-boxes";
-import products from "../data/products";
+import allocateBoxes from "../utils/allocate-boxes";
+import productList from "../data/products";
 
 describe('Box Packing Algorithm', () => {
   it('should allocate a single product to the smallest box', () => {
-    const singleProduct = [products[0]];
-    const result = calculateBoxes(singleProduct);
+    const products = [productList[0]];
+    const result = allocateBoxes(products);
     expect(result).toHaveLength(1);
-    expect(result[0].products).toContain(singleProduct[0]);
+    expect(result[0].products).toContain(products[0]);
   });
 
   it('should allocate multiple products to the smallest box', () => {
-    const multipleProducts = [products[0], products[3]];
-    const result = calculateBoxes(multipleProducts);
+    const products = [productList[0], productList[3]];
+    const result = allocateBoxes(products);
     expect(result).toHaveLength(1);
-    expect(result[0].products).toContain(multipleProducts[0]);
-    expect(result[0].products).toContain(multipleProducts[1]);
+    expect(result[0].products).toContain(products[0]);
+    expect(result[0].products).toContain(products[1]);
   });
 
   it('should allocate products to multiple boxes', () => {
-    const multipleProducts = [products[0], products[1], products[2]];
-    const result = calculateBoxes(multipleProducts);
+    const products = [productList[0], productList[1], productList[2]];
+    const result = allocateBoxes(products);
     expect(result).toHaveLength(3);
   });
 
   it('should return an error message if a product does not fit in any box', () => {
-    const largeProduct = products[44];
-    const result = calculateBoxes([largeProduct]);
+    const products = [productList[44]];
+    const result = allocateBoxes(products);
     expect(result).toBe('Some products do not fit in any box.');
   });
 
   it('should handle edge cases where products barely fit', () => {
-    const edgeCaseProduct = [products[0]];
-    const result = calculateBoxes(edgeCaseProduct);
+    const products = [productList[2]];
+    const result = allocateBoxes(products);
     expect(result).toHaveLength(1);
-    expect(result[0].products).toContain(edgeCaseProduct[0]);
+    expect(result[0].products).toContain(products[0]);
   });
 
   it('should minimize the total volume of the boxes used', () => {
-    const productsToPack = [products[0], products[1], products[2]];
-    const result = calculateBoxes(productsToPack);
+    const products = [productList[0], productList[3]];
+    const result = allocateBoxes(products);
     const totalVolume = result.reduce((acc, box) => acc + (box.length * box.width * box.height), 0);
-    expect(totalVolume).toBeLessThanOrEqual(183000);
+    const BOX_A_VOLUME = 3000;
+
+    expect(totalVolume).toBeLessThanOrEqual(BOX_A_VOLUME);
   });
 });

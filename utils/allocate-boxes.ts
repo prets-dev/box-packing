@@ -1,27 +1,34 @@
 import { Box, Product } from "@/types";
 import boxes from "@/data/boxes.json";
 
-const calculateBoxes = (products: Product[]) => {
+const calculateVolume = (data: Product | Box) => data.length * data.width * data.height;
+
+const canFit = (product: Product, box: Box, totalProductsVolumePerBox: number, totalProductsWeightPerBox: number) => {
+    const boxVolume = calculateVolume(box);
+    const productVolume = calculateVolume(product);
+
+    return (
+        product.length <= box.length &&
+        product.width <= box.width &&
+        product.height <= box.height &&
+        product.weight <= box.weight_limit &&
+        totalProductsWeightPerBox + product.weight <= box.weight_limit &&
+        totalProductsVolumePerBox + productVolume <= boxVolume
+    )
+}
+
+const allocateBoxes = (products: Product[]) => {
     const result: Box[] = [];
     let remainingProducts = [...products];
 
-    for (const box of boxes) {
-        const boxVolume = box.length * box.width * box.height;
+    for (const box of (boxes as Box[])) {
         const boxProducts: Product[] = [];
 
         remainingProducts = remainingProducts.filter(product => {
             const totalProductsWeightPerBox = boxProducts.reduce((acc, p) => acc + p.weight, 0)
             const totalProductsVolumePerBox = boxProducts.reduce((acc, p) => acc + (p.length * p.width * p.height), 0)
-            const productVolume = product.length * product.width * product.height
             
-            if (
-                product.length <= box.length &&
-                product.width <= box.width &&
-                product.height <= box.height &&
-                product.weight <= box.weight_limit &&
-                totalProductsWeightPerBox + product.weight <= box.weight_limit &&
-                totalProductsVolumePerBox + productVolume <= boxVolume
-            ) {
+            if (canFit(product, box, totalProductsVolumePerBox, totalProductsWeightPerBox)) {
                 boxProducts.push(product);
                 return false;
             }
@@ -40,4 +47,4 @@ const calculateBoxes = (products: Product[]) => {
     return result;
 }
 
-export default calculateBoxes;
+export default allocateBoxes;
