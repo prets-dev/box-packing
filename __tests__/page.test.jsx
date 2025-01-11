@@ -1,15 +1,16 @@
 import { render, screen, userEvent } from '../utils/tests';
-import { MultiSelect } from '@mantine/core';
-import products from "../data/products";
+import ProductsMultiSelect from '../components/products-multi-select';
 
-describe('MultiSelect Component', () => {
+describe('ProductsMultiSelect Component', () => {
   it('selects multiple options', async () => {
-    const data = products.map((product) => ({ value: product.name, label: product.name }));
+    let selectedProducts = [];
+    const setSelectedProducts = jest.fn((newValue) => {
+      selectedProducts = newValue;
+    });
     render(
-      <MultiSelect
-        name="products"
-        label="Select products"
-        data={data}
+      <ProductsMultiSelect
+        values={selectedProducts}
+        onChange={setSelectedProducts}
       />
     );
   

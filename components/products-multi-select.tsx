@@ -24,7 +24,7 @@ const ProductsMultiSelect: React.FC<{
                 clearable
                 checkIconPosition="left"
                 maxValues={MAX_PRODUCTS}
-                value={values}
+                // value={values}
                 onChange={(values) => onChange(values)}
                 searchable
             />

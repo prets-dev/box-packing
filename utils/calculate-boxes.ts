@@ -12,6 +12,7 @@ const calculateBoxes = (products: Product[]) => {
         remainingProducts = remainingProducts.filter(product => {
             const totalProductsWeightPerBox = boxProducts.reduce((acc, p) => acc + p.weight, 0)
             const totalProductsVolumePerBox = boxProducts.reduce((acc, p) => acc + (p.length * p.width * p.height), 0)
+            const productVolume = product.length * product.width * product.height
             
             if (
                 product.length <= box.length &&
@@ -19,7 +20,7 @@ const calculateBoxes = (products: Product[]) => {
                 product.height <= box.height &&
                 product.weight <= box.weight_limit &&
                 totalProductsWeightPerBox + product.weight <= box.weight_limit &&
-                totalProductsVolumePerBox + (product.length * product.width * product.height) <= boxVolume
+                totalProductsVolumePerBox + productVolume <= boxVolume
             ) {
                 boxProducts.push(product);
                 return false;
