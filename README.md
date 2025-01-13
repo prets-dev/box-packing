@@ -242,6 +242,44 @@ You can view a live demo of the application at the following link:
 
     Some products do not fit in any box.
 
+#### Example 5: Handles product that barely fit
+
+**Input**:
+
+    [
+        {
+            "id": 2,
+            "name": "Gaming Keyboard",
+            "length": 45,
+            "width": 15,
+            "height": 4,
+            "weight": 1.5
+        },
+    ]
+
+**Expected Output**:
+
+    [
+        {
+            "id": 3,
+            "name": "BOX C",
+            "length": 60,
+            "width": 55,
+            "height": 50,
+            "weight_limit": 50,
+            "products": [
+                {
+                    "id": 2,
+                    "name": "Gaming Keyboard",
+                    "length": 45,
+                    "width": 15,
+                    "height": 4,
+                    "weight": 1.5
+                }
+            ]
+        }
+    ]
+
 ### Known Limitations or Edge Cases
 
 1. **Product Dimensions**:

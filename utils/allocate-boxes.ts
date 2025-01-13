@@ -3,7 +3,7 @@ import boxes from "@/data/boxes.json";
 
 const calculateVolume = (data: Product | Box) => data.length * data.width * data.height;
 
-const canFit = (product: Product, box: Box, totalProductsVolumePerBox: number, totalProductsWeightPerBox: number) => {
+const canFit = (product: Product, box: Box, totalProductVolume: number, totalProductWeight: number) => {
     const boxVolume = calculateVolume(box);
     const productVolume = calculateVolume(product);
 
@@ -12,8 +12,8 @@ const canFit = (product: Product, box: Box, totalProductsVolumePerBox: number, t
         product.width <= box.width &&
         product.height <= box.height &&
         product.weight <= box.weight_limit &&
-        totalProductsWeightPerBox + product.weight <= box.weight_limit &&
-        totalProductsVolumePerBox + productVolume <= boxVolume
+        totalProductWeight + product.weight <= box.weight_limit &&
+        totalProductVolume + productVolume <= boxVolume
     )
 }
 
@@ -25,10 +25,10 @@ const allocateBoxes = (products: Product[]) => {
         const boxProducts: Product[] = [];
 
         remainingProducts = remainingProducts.filter(product => {
-            const totalProductsWeightPerBox = boxProducts.reduce((acc, p) => acc + p.weight, 0)
-            const totalProductsVolumePerBox = boxProducts.reduce((acc, p) => acc + (p.length * p.width * p.height), 0)
+            const totalProductWeight = boxProducts.reduce((acc, p) => acc + p.weight, 0)
+            const totalProductVolume = boxProducts.reduce((acc, p) => acc + (p.length * p.width * p.height), 0)
             
-            if (canFit(product, box, totalProductsVolumePerBox, totalProductsWeightPerBox)) {
+            if (canFit(product, box, totalProductVolume, totalProductWeight)) {
                 boxProducts.push(product);
                 return false;
             }
